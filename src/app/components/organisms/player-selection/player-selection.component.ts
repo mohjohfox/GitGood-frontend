@@ -20,12 +20,6 @@ export class PlayerSelectionComponent implements OnInit {
       // this.players = await this.playerService.getAll();
     }
 
-    async startGame(players: Player[]) {
-        // Check and save players and Game Mode
-        // Navigate to Game page
-        // await this.router.navigate(['item-view', id]);
-    }
-
     async addPlayer() {
         // add a new player-add.component to the page
     }
