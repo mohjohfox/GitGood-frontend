@@ -11,6 +11,7 @@ import { ItemEditComponent } from './components/pages/item-edit/item-edit.compon
 import { ListViewComponent } from './components/pages/list-view/list-view.component';
 import {GameSetupComponent} from './components/pages/game-setup/game-setup.component';
 import {TextFieldComponent} from './components/atoms/text-field/text-field.component';
+import {GameModeComponent} from './components/molecules/game-mode/game-mode.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import {TextFieldComponent} from './components/atoms/text-field/text-field.compo
         ItemViewComponent,
         ItemEditComponent,
         ListViewComponent,
+        GameModeComponent,
     ],
     imports: [
         BrowserModule,
