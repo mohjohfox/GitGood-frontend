@@ -11,7 +11,9 @@ import { ItemEditComponent } from './components/pages/item-edit/item-edit.compon
 import { ListViewComponent } from './components/pages/list-view/list-view.component';
 import {GameSetupComponent} from './components/pages/game-setup/game-setup.component';
 import {TextFieldComponent} from './components/atoms/text-field/text-field.component';
-import {GameModeComponent} from './components/molecules/game-mode/game-mode.component';
+import {GameModeComponent} from './components/organisms/game-mode/game-mode.component';
+import {PlayerAddComponent} from './components/molecules/player-add/player-add.component';
+import {PlayerSelectionComponent} from './components/organisms/player-selection/player-selection.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +25,8 @@ import {GameModeComponent} from './components/molecules/game-mode/game-mode.comp
         ItemEditComponent,
         ListViewComponent,
         GameModeComponent,
+        PlayerAddComponent,
+        PlayerSelectionComponent
     ],
     imports: [
         BrowserModule,
