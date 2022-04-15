@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Todo } from '../../../model/todo';
-import { TodoService } from '../../../services/todo.service';
 import {Player} from '../../../model/player';
+import {PlayerService} from '../../../services/player.service';
 
 @Component({
     selector: 'app-player-selection',
@@ -11,17 +10,23 @@ import {Player} from '../../../model/player';
 export class PlayerSelectionComponent implements OnInit {
     players: Player[];
 
-    constructor(private readonly todoService: TodoService,
+    constructor(private readonly playerService: PlayerService,
                 private readonly router: Router) {
     }
 
     async ngOnInit() {
       // Add one Player Field
-      // this.players = await this.playerService.getAll();
+      this.players = await this.playerService.getAll();
     }
 
     async addPlayer() {
         // add a new player-add.component to the page
+      await this.playerService.addItem();
+      this.players = await this.playerService.getAll();
     }
 
+  removePlayer(id: number) {
+
+    // remove Player
+  }
 }

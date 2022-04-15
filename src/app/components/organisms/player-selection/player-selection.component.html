@@ -1,11 +1,7 @@
 <h2 class="Spieler">Spieler:</h2>
 
-<!-- Remove next line as soon as add Player is functioning
-     The following line only serves visuell testing purposes-->
-<app-player-add></app-player-add>
-
 <div *ngFor="let player of players">
-  <app-player-add ></app-player-add>
+  <app-player-add [player]="player" (removePlayer)="removePlayer($event)"></app-player-add>
   <div class=""></div>
 </div>
 <app-button label="Spieler hinzufügen" (clicked)="addPlayer()"></app-button>

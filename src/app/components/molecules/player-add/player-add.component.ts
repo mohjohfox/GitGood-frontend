@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Player} from '../../../model/player';
 
 @Component({
     selector: 'app-player-add',
@@ -10,8 +11,11 @@ export class PlayerAddComponent {
     label: string;
     @Input()
     type: ButtonType = 'primary';
+    @Input()
+    player: Player;
     @Output()
-    clicked = new EventEmitter<void>();
+    removePlayer = new EventEmitter<number>();
+
 }
 
 type ButtonType = 'primary' | 'secondary';
