@@ -1,29 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
-import { Todo } from '../../../model/todo';
-import { TodoService } from '../../../services/todo.service';
+import {GameModeService} from '../../../services/gamemode.service';
+import {TextFieldComponent} from '../../atoms/text-field/text-field.component';
 
 @Component({
     selector: 'app-game-mode',
     templateUrl: './game-mode.component.html',
 })
 export class GameModeComponent implements OnInit {
-    items: Todo[];
+  @ViewChild(TextFieldComponent) ruleTextField!: TextFieldComponent;
 
-    constructor(private readonly todoService: TodoService,
+    constructor(private readonly gameModeService: GameModeService,
                 private readonly router: Router) {
     }
 
     async ngOnInit() {
-        this.items = await this.todoService.getAll();
+
     }
 
-    async showDetails(id: number) {
-        await this.router.navigate(['item-view', id]);
+    showRules(gameModeName: string) {
+        this.gameModeService.getGameModeByName(gameModeName).subscribe( response => {
+        this.ruleTextField.text = response.description;
+      });
     }
 
-    async showRules(id: number) {
-      // id weißt hierbei den Spielmodus aus (0-5) siehe game-setup.component.html
-      // hier wird noch die Backend-Abfrage eingefügt und der Text des text-fields angepasst
-    }
 }

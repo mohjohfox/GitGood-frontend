@@ -1,12 +1,13 @@
-
 <h2 class="Modi">Spielmodus:</h2>
-<app-button label="301" (clicked)="showRules(0)"></app-button>
-<app-button label="501" (clicked)="showRules(1)"></app-button>
+<app-button label="301" (clicked)="showRules('THREEHUNDREDONE')"></app-button>
+<app-button label="501" (clicked)="showRules('FIVEHUNDREDONE')"></app-button>
 <br><br>
-<app-button label="Cricket" (clicked)="showRules(2)"></app-button>
-<app-button label="Shanghai" (clicked)="showRules(3)"></app-button>
+<app-button label="Cricket" (clicked)="showRules('Cricket')"></app-button>
+<app-button label="Shanghai" (clicked)="showRules('SHANGHAI')"></app-button>
 <br><br>
-<app-button label="Round the clock" (clicked)="showRules(4)"></app-button>
-<app-button  label="120 - runter und rauf" (clicked)="showRules(5)"></app-button>
+<app-button label="Round the clock" (clicked)="showRules('ROUNDTHECLOCK')"></app-button>
+<app-button  label="120 - runter und rauf" (clicked)="showRules('ONEHUNDREDTWENTYDOWNANDUPWARDS')"></app-button>
 <br><br>
 <app-text-field text="Regeln des ausgewählten Spielmodi."></app-text-field>
+
+
