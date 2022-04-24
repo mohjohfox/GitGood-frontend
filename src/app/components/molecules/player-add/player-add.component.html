@@ -1,5 +1,5 @@
 <form>
-  <input type="text">
-  <app-button label="Spieler entfernen"></app-button>
+  <input (change)="changePlayerName.emit($event)" type="text">
+  <app-button label="Spieler entfernen" (clicked)="removePlayer.emit(player.id)"></app-button>
 </form>
 

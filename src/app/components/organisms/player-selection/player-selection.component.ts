@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
-import { Todo } from '../../../model/todo';
-import { TodoService } from '../../../services/todo.service';
 import {Player} from '../../../model/player';
 
 @Component({
@@ -9,19 +7,55 @@ import {Player} from '../../../model/player';
     templateUrl: './player-selection.component.html',
 })
 export class PlayerSelectionComponent implements OnInit {
-    players: Player[];
 
-    constructor(private readonly todoService: TodoService,
-                private readonly router: Router) {
+    private players: Map<number, Player> = new Map();
+    playersAsArray: Player[];
+
+    constructor(private readonly router: Router) {
     }
 
-    async ngOnInit() {
+  async ngOnInit() {
       // Add one Player Field
-      // this.players = await this.playerService.getAll();
+      this.playersAsArray = await this.getAll();
     }
 
     async addPlayer() {
         // add a new player-add.component to the page
+      await this.addItem();
+      this.playersAsArray = await this.getAll();
+      console.log(this.playersAsArray);
     }
+
+  async removePlayer(id: number) {
+      console.log('remove player method');
+      console.log(id);
+      this.removePlayerById(id);
+      this.playersAsArray = await this.getAll();
+  }
+
+  async setPlayerNameFromInput(name: any, id: number) {
+      console.log('eee ' + name);
+      console.log(id);
+
+      this.players.get(id).name = name;
+      this.playersAsArray = await this.getAll();
+      console.log(this.playersAsArray);
+  }
+
+  private getAll(): Promise<Player[]> {
+    return Promise.resolve(Array.from(this.players.values()));
+  }
+
+  private removePlayerById(id: number) {
+    this.players.delete(id);
+  }
+
+  private addItem(): Promise<Player[]> {
+    const id = this.players.size + 1;
+    const player: Player = new Player(id, '');
+    this.players.set(id, player);
+    console.log(id);
+    return Promise.resolve(Array.from(this.players.values()));
+  }
 
 }

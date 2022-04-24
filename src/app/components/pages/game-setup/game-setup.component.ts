@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TodoService } from '../../../services/todo.service';
+import {PlayerService} from '../../../services/player.service';
 
 @Component({
     selector: 'app-game-setup',
@@ -8,12 +9,12 @@ import { TodoService } from '../../../services/todo.service';
 })
 export class GameSetupComponent implements OnInit {
 
-    constructor(private readonly todoService: TodoService,
+    constructor(private readonly playerService: PlayerService,
                 private readonly router: Router) {
     }
 
     async ngOnInit() {
-        // this.players = await this.todoService.getAll();
+        // this.players = await this.playerService.getAll();
     }
 
 
