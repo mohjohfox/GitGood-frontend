@@ -1,7 +1,7 @@
 <h2 class="Spieler">Spieler:</h2>
 
-<div *ngFor="let player of players">
-  <app-player-add [player]="player" (removePlayer)="removePlayer($event)"></app-player-add>
+<div *ngFor="let player of playersAsArray">
+  <app-player-add [player]="player" (changePlayerName)="setPlayerNameFromInput($event)" (removePlayer)="removePlayer(player.id)"></app-player-add>
   <div class=""></div>
 </div>
 <app-button label="Spieler hinzufügen" (clicked)="addPlayer()"></app-button>

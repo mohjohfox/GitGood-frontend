@@ -9,12 +9,7 @@ import {PlayerAddComponent} from '../components/molecules/player-add/player-add.
 })
 export class PlayerService {
 
-  private players: Map<number, Player> = new Map([
-    [1, {
-      id: 1,
-      name: 'item1',
-    }]
-  ]);
+  private players: Map<number, Player> = new Map();
 
   constructor(private readonly httpClient: HttpClient) {
   }
@@ -23,33 +18,16 @@ export class PlayerService {
     return Promise.resolve(Array.from(this.players.values()));
   }
 
-  findById(id: number): Promise<Player> {
-    return Promise.resolve(this.players.get(id));
-  }
-
-  saveItem(player: Player): Promise<Player> {
-    let id = player.id;
-    if (!id) {
-      id = this.players.size + 1;
-      player.id = id;
-    }
-
-    this.players.set(id, player);
-
-    return Promise.resolve(this.players.get(id));
+  removePlayerById(id: number) {
+    this.players.delete(id);
   }
 
   addItem(): Promise<Player[]> {
     const id = this.players.size + 1;
-    this.players.set(id, PlayerAddComponent);
-
+    const player: Player = new Player(id, '');
+    this.players.set(id, player);
+    console.log(id);
     return Promise.resolve(Array.from(this.players.values()));
   }
 
-  private copy(player: Player): Player {
-    if (!player) {
-      return player;
-    }
-    return JSON.parse(JSON.stringify(player));
-  }
 }

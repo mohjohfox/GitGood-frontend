@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {Player} from '../../../model/player';
 
 @Component({
@@ -15,7 +15,8 @@ export class PlayerAddComponent {
     player: Player;
     @Output()
     removePlayer = new EventEmitter<number>();
-
+    @Output()
+    changePlayerName = new EventEmitter<string>();
 }
 
 type ButtonType = 'primary' | 'secondary';
