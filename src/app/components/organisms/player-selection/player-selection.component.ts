@@ -6,7 +6,7 @@ import {Player} from '../../../model/player';
     selector: 'app-player-selection',
     templateUrl: './player-selection.component.html',
 })
-export class PlayerSelectionComponent implements OnInit, OnChanges {
+export class PlayerSelectionComponent implements OnInit {
 
     private players: Map<number, Player> = new Map();
     playersAsArray: Player[];
@@ -18,10 +18,6 @@ export class PlayerSelectionComponent implements OnInit, OnChanges {
       // Add one Player Field
       this.playersAsArray = await this.getAll();
     }
-
-  ngOnChanges(changes: SimpleChanges): void {
-      console.log('hauptkombo');
-  }
 
     async addPlayer() {
         // add a new player-add.component to the page
@@ -37,8 +33,13 @@ export class PlayerSelectionComponent implements OnInit, OnChanges {
       this.playersAsArray = await this.getAll();
   }
 
-  async setPlayerNameFromInput(name: string) {
-      console.log(name);
+  async setPlayerNameFromInput(name: any, id: number) {
+      console.log('eee ' + name);
+      console.log(id);
+
+      this.players.get(id).name = name;
+      this.playersAsArray = await this.getAll();
+      console.log(this.playersAsArray);
   }
 
   private getAll(): Promise<Player[]> {
