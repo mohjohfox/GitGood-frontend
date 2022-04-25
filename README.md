@@ -1,4 +1,4 @@
-# RichClientClient
+# GitGood Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.8.
 
@@ -21,6 +21,10 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Documentation
+
+Run `npm run compodoc` to create documentation via [Compodoc](https://compodoc.app/). 
 
 ## Further help
 
