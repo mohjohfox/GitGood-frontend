@@ -38,7 +38,7 @@ export class PlayerSelectionComponent implements OnInit {
       console.log('eee ' + name);
       console.log(id);
 
-      this.players.get(id).name = name;
+      this.players.get(id).playerName = name;
       this.playersAsArray = await this.getAll();
       console.log(this.playersAsArray);
   }

@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import {GameModeService} from '../../../services/gamemode.service';
 import {TextFieldComponent} from '../../atoms/text-field/text-field.component';
-import {Player} from '../../../model/player';
 import {GameMode} from '../../../model/gamemode';
 
 @Component({
@@ -26,7 +25,6 @@ export class GameModeComponent implements OnInit {
         this.gameModeService.getGameModeByName(gameModeName).subscribe( response => {
         this.ruleTextField.text = response.description;
         this.gamemode = response;
-        console.log('Gamemodecomponente: ' + this.gamemode.name);
       });
     }
 

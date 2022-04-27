@@ -7,6 +7,9 @@ import {GameModeComponent} from '../../organisms/game-mode/game-mode.component';
 import {PlayerSelectionComponent} from '../../organisms/player-selection/player-selection.component';
 import {GameMode} from '../../../model/gamemode';
 import {Player} from '../../../model/player';
+import {GameModeService} from '../../../services/gamemode.service';
+import {GamesetupService} from '../../../services/gamesetup.service';
+import {HttpStatusCode} from '@angular/common/http';
 
 @Component({
     selector: 'app-game-setup',
@@ -17,7 +20,7 @@ export class GameSetupComponent implements OnInit {
   @ViewChild(PlayerSelectionComponent) playerSelectionComponent: PlayerSelectionComponent;
   @ViewChild(GameModeComponent) gameModeComponent: GameModeComponent;
 
-    constructor(private readonly playerService: PlayerService,
+    constructor(private readonly playerService: PlayerService, private readonly gamesetupService: GamesetupService,
                 private readonly router: Router) {
     }
 
@@ -27,10 +30,15 @@ export class GameSetupComponent implements OnInit {
 
 
     async startGame() {
-      const game: Game = new Game(this.playerSelectionComponent.playersAsArray, this.gameModeComponent.getGameMode());
+      const playersAsArray = this.playerSelectionComponent.playersAsArray;
+      const gameMode = this.gameModeComponent.getGameMode();
 
-      if (this.checkForValidGame(this.gameModeComponent.getGameMode(), this.playerSelectionComponent.playersAsArray)) {
+      if (this.checkForValidGame(gameMode, playersAsArray)) {
+        const game: Game = new Game(playersAsArray, gameMode);
 
+        this.gamesetupService.sendGameToServer(game).subscribe(response => {
+            console.log('Weiterleitung hier!');
+        });
       } else {
         alert('Could not start game. Please insert valid player names and select one gamemode');
       }
@@ -41,11 +49,11 @@ export class GameSetupComponent implements OnInit {
     }
 
   private checkForValidNames(players: Player[]): boolean {
-      return players.every(item => this.matchesExpression(item.name));
+      return players.every(item => this.matchesExpression(item.playerName));
   }
 
   private matchesExpression(name: string): boolean {
-      return name.match('[^a-z0-9 ]') == null;
+      return name.length > 0 && name.match('[^a-z0-9 ]') == null;
   }
 
   private checkForValidGameMode(gamemode: GameMode): boolean {
