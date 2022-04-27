@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import {Player} from '../../../model/player';
 
@@ -8,8 +8,9 @@ import {Player} from '../../../model/player';
 })
 export class PlayerSelectionComponent implements OnInit {
 
-    private players: Map<number, Player> = new Map();
-    playersAsArray: Player[];
+  @Output() newPlayerEvent = new EventEmitter<string>();
+  private players: Map<number, Player> = new Map();
+  playersAsArray: Player[];
 
     constructor(private readonly router: Router) {
     }
