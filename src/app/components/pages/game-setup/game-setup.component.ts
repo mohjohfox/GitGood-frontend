@@ -53,7 +53,7 @@ export class GameSetupComponent implements OnInit {
   }
 
   private matchesExpression(name: string): boolean {
-      return name.length > 0 && name.match('[^a-z0-9 ]') == null;
+      return name.length > 0 && name.match('[^a-zA-Z0-9 ]') == null;
   }
 
   private checkForValidGameMode(gamemode: GameMode): boolean {
