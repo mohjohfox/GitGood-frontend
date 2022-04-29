@@ -40,7 +40,9 @@ export class GameSetupComponent implements OnInit {
             console.log('Weiterleitung hier!');
         });
       } else {
-        alert('Could not start game. Please insert valid player names and select one gamemode');
+        alert('Spiel konnte nicht gestartet werden. Prüfe bitte folgende Eingaben: \n ' +
+          '- Spielernamen dürfen nicht leer sein und nur aus Buchstaben und Zahlen bestehen \n ' +
+          '- ein Spielmodus muss ausgewählt sein');
       }
     }
 
