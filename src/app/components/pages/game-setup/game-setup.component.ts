@@ -1,7 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { TodoService } from '../../../services/todo.service';
 import {PlayerService} from '../../../services/player.service';
+import {Game} from '../../../model/game';
+import {GameModeComponent} from '../../organisms/game-mode/game-mode.component';
+import {PlayerSelectionComponent} from '../../organisms/player-selection/player-selection.component';
+import {GameMode} from '../../../model/gamemode';
+import {Player} from '../../../model/player';
+import {GameModeService} from '../../../services/gamemode.service';
+import {GamesetupService} from '../../../services/gamesetup.service';
+import {HttpStatusCode} from '@angular/common/http';
 
 @Component({
     selector: 'app-game-setup',
@@ -9,7 +17,10 @@ import {PlayerService} from '../../../services/player.service';
 })
 export class GameSetupComponent implements OnInit {
 
-    constructor(private readonly playerService: PlayerService,
+  @ViewChild(PlayerSelectionComponent) playerSelectionComponent: PlayerSelectionComponent;
+  @ViewChild(GameModeComponent) gameModeComponent: GameModeComponent;
+
+    constructor(private readonly playerService: PlayerService, private readonly gamesetupService: GamesetupService,
                 private readonly router: Router) {
     }
 
@@ -19,8 +30,35 @@ export class GameSetupComponent implements OnInit {
 
 
     async startGame() {
-      // Check and save players and Game Mode
-      // Navigate to Game page
-      // await this.router.navigate(['item-view', id]);
+      const playersAsArray = this.playerSelectionComponent.playersAsArray;
+      const gameMode = this.gameModeComponent.getGameMode();
+
+      if (this.checkForValidGame(gameMode, playersAsArray)) {
+        const game: Game = new Game(playersAsArray, gameMode);
+
+        this.gamesetupService.sendGameToServer(game).subscribe(response => {
+            console.log('Weiterleitung hier!');
+        });
+      } else {
+        alert('Spiel konnte nicht gestartet werden. Prüfe bitte folgende Eingaben: \n ' +
+          '- Spielernamen dürfen nicht leer sein und nur aus Buchstaben und Zahlen bestehen \n ' +
+          '- ein Spielmodus muss ausgewählt sein');
+      }
     }
+
+    private checkForValidGame(gamemode: GameMode, players: Player[]) {
+      return this.checkForValidGameMode(gamemode) && players.length > 0 && this.checkForValidNames(players);
+    }
+
+  private checkForValidNames(players: Player[]): boolean {
+      return players.every(item => this.matchesExpression(item.playerName));
+  }
+
+  private matchesExpression(name: string): boolean {
+      return name.length > 0 && name.match('[^a-zA-Z0-9 ]') == null;
+  }
+
+  private checkForValidGameMode(gamemode: GameMode): boolean {
+    return gamemode != null;
+  }
 }
