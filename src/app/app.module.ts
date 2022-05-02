@@ -11,6 +11,7 @@ import {TextFieldComponent} from './components/atoms/text-field/text-field.compo
 import {GameModeComponent} from './components/organisms/game-mode/game-mode.component';
 import {PlayerAddComponent} from './components/molecules/player-add/player-add.component';
 import {PlayerSelectionComponent} from './components/organisms/player-selection/player-selection.component';
+import {DartboardComponent} from './components/organisms/dartboard/dartboard-component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import {PlayerSelectionComponent} from './components/organisms/player-selection/
         GameSetupComponent,
         GameModeComponent,
         PlayerAddComponent,
-        PlayerSelectionComponent
+        PlayerSelectionComponent,
+        DartboardComponent
     ],
     imports: [
         BrowserModule,
