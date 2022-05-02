@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {GameSetupComponent} from './components/pages/game-setup/game-setup.component';
+import {GameRunningComponent} from './components/pages/game-running/game-running.component';
 
 const routes: Routes = [
     {
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
       path: 'game-setup',
       component: GameSetupComponent,
+    },
+    {
+      path: 'game/:gameId',
+      component: GameRunningComponent,
     }
 ];
 

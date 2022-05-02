@@ -11,6 +11,7 @@ import {TextFieldComponent} from './components/atoms/text-field/text-field.compo
 import {GameModeComponent} from './components/organisms/game-mode/game-mode.component';
 import {PlayerAddComponent} from './components/molecules/player-add/player-add.component';
 import {PlayerSelectionComponent} from './components/organisms/player-selection/player-selection.component';
+import {GameRunningComponent} from './components/pages/game-running/game-running.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import {PlayerSelectionComponent} from './components/organisms/player-selection/
         ButtonComponent,
         TextFieldComponent,
         GameSetupComponent,
+        GameRunningComponent,
         GameModeComponent,
         PlayerAddComponent,
         PlayerSelectionComponent
