@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
-import { select } from 'd3-selection'
-import { arc, pie } from 'd3-shape'
+import { select } from 'd3-selection';
+import { arc, pie } from 'd3-shape';
 
 const defaultOptions = {
     size: null,
@@ -11,7 +11,7 @@ const defaultOptions = {
     innerSinglePercent: 30,
     outerBullPercent: 8,
     innerBullPercent: 7,
-}
+};
 
 const defaultRings = {
     BORDER: { name: 'border', abbr: 'M', multiplier: 0 },
@@ -21,7 +21,7 @@ const defaultRings = {
     INNER_SINGLE: { name: 'innerSingle', abbr: 'S', multiplier: 1 },
     OUTER_BULL: { name: 'outerBull', abbr: 'B', multiplier: 1 },
     INNER_BULL: { name: 'innerBull', abbr: 'DB', multiplier: 1 },
-}
+};
 
 const defaultBeds = [
     { frame: 20, position: 1, color: 'Dark' },
@@ -44,7 +44,7 @@ const defaultBeds = [
     { frame: 9, position: 18, color: 'Light' },
     { frame: 12, position: 19, color: 'Dark' },
     { frame: 5, position: 20, color: 'Light' },
-]
+];
 
 @Component({
     selector: 'app-dartboard',
@@ -53,20 +53,20 @@ const defaultBeds = [
 })
 export class DartboardComponent implements AfterViewInit {
 
-    dartboardContent;
     beds;
     rings;
-    board: { container: Element; element: any; width: any; segmentWidth: number; height: any; radius: any; rotation: any; svg: any; pie: any;};
+  // tslint:disable-next-line:max-line-length
+    board: { container: Element; element: any; width: any; segmentWidth: number; height: any; radius: any; rotation: any; svg: any; pie: any; };
     sizes;
 
     constructor() {
     }
 
     async ngAfterViewInit() {
-        let containerSelector = '#dartboard';
-        let beds = defaultBeds;
-        let rings = defaultRings;
-        let options = defaultOptions;
+        const containerSelector = '#dartboard';
+        const beds = defaultBeds;
+        const rings = defaultRings;
+        const options = defaultOptions;
         this.beds = beds;
         this.rings = rings;
 
@@ -74,20 +74,20 @@ export class DartboardComponent implements AfterViewInit {
         const board = {
             container: boardContainer,
             element: select(containerSelector).append('div').classed('c-Dartboard', true),
-            width: options.size || Math.min(400, 500), //Math.min(boardContainer.offsetHeight, boardContainer.offsetWidth),
+            width: options.size || Math.min(400, 500), // Math.min(boardContainer.offsetHeight, boardContainer.offsetWidth),
             segmentWidth: 360 / beds.length,
             height : undefined,
             radius : undefined,
             rotation : undefined,
             svg : undefined,
-            pie : pie,
-        }
+            pie,
+        };
 
-        board.height = board.width
-        board.radius = board.width / 2
-        board.rotation = board.segmentWidth / -2 // rotate so center of first segment is on top
-        board.svg = this._createBoardSvg(board)
-        this.board = board
+        board.height = board.width;
+        board.radius = board.width / 2;
+        board.rotation = board.segmentWidth / -2; // rotate so center of first segment is on top
+        board.svg = this._createBoardSvg(board);
+        this.board = board;
 
         const sizes = {
             border: board.radius * this._asPercent(options.borderPercent),
@@ -97,70 +97,77 @@ export class DartboardComponent implements AfterViewInit {
             innerSingle: board.radius * this._asPercent(options.innerSinglePercent),
             outerBull: board.radius * this._asPercent(options.outerBullPercent),
             innerBull: board.radius * this._asPercent(options.innerBullPercent),
-        }
-        this.sizes = sizes
-        console.log("Init dartboard")
+        };
+        this.sizes = sizes;
+        console.log('Init dartboard');
         this.render();
         console.log(this.board);
+
+        document.querySelector('#dartboard').addEventListener('throw', (d) => {
+          console.log((d as CustomEvent).detail);
+      });
+
+
     }
 
     render() {
         this.board.pie = pie()
             .sort((a, b) => (a.position - b.position))
-            .value(() => this.board.segmentWidth)
+            .value(() => this.board.segmentWidth);
 
-        let innerRadius = 0
-        let outerRadius = innerRadius + this.sizes.innerBull
+        let innerRadius = 0;
+        let outerRadius = innerRadius + this.sizes.innerBull;
         this._renderSegments(this.board, this.rings.INNER_BULL, [{ frame: 50, color: 'Dark' }],
-            outerRadius, innerRadius)
+            outerRadius, innerRadius);
 
-        innerRadius = outerRadius
-        outerRadius = innerRadius + this.sizes.outerBull
+        innerRadius = outerRadius;
+        outerRadius = innerRadius + this.sizes.outerBull;
         this._renderSegments(this.board, this.rings.OUTER_BULL, [{ frame: 25, color: 'Light' }],
-            outerRadius, innerRadius)
+            outerRadius, innerRadius);
 
-        innerRadius = outerRadius
-        outerRadius = innerRadius + this.sizes.innerSingle
-        this._renderSegments(this.board, this.rings.INNER_SINGLE, this.beds, outerRadius, innerRadius)
+        innerRadius = outerRadius;
+        outerRadius = innerRadius + this.sizes.innerSingle;
+        this._renderSegments(this.board, this.rings.INNER_SINGLE, this.beds, outerRadius, innerRadius);
 
-        innerRadius = outerRadius
-        outerRadius = innerRadius + this.sizes.triple
-        this._renderSegments(this.board, this.rings.TRIPLE, this.beds, outerRadius, innerRadius)
+        innerRadius = outerRadius;
+        outerRadius = innerRadius + this.sizes.triple;
+        this._renderSegments(this.board, this.rings.TRIPLE, this.beds, outerRadius, innerRadius);
 
-        innerRadius = outerRadius
-        outerRadius = innerRadius + this.sizes.outerSingle
-        this._renderSegments(this.board, this.rings.OUTER_SINGLE, this.beds, outerRadius, innerRadius)
+        innerRadius = outerRadius;
+        outerRadius = innerRadius + this.sizes.outerSingle;
+        this._renderSegments(this.board, this.rings.OUTER_SINGLE, this.beds, outerRadius, innerRadius);
 
-        innerRadius = outerRadius
-        outerRadius = innerRadius + this.sizes.double
-        this._renderSegments(this.board, this.rings.DOUBLE, this.beds, outerRadius, innerRadius)
+        innerRadius = outerRadius;
+        outerRadius = innerRadius + this.sizes.double;
+        this._renderSegments(this.board, this.rings.DOUBLE, this.beds, outerRadius, innerRadius);
 
-        innerRadius = this.board.radius - this.sizes.border
-        outerRadius = this.board.radius
-        this._renderBorders(this.board, this.rings.BORDER, this.beds, outerRadius, innerRadius)
+        innerRadius = this.board.radius - this.sizes.border;
+        outerRadius = this.board.radius;
+        this._renderBorders(this.board, this.rings.BORDER, this.beds, outerRadius, innerRadius);
     }
 
+  // tslint:disable-next-line:variable-name
     _asPercent(number): number {
-        return (number / 100).toFixed(2) as unknown || number 
-    } 
-    
+        return (number / 100).toFixed(2) as unknown || number;
+    }
+
     _createBoardSvg(board) {
         return board.element.append('svg')
             .attr('width', board.width)
             .attr('height', board.height)
             .append('g')
-            .attr('transform', `translate(${board.radius}, ${board.radius}) rotate(${board.rotation})`)
+            .attr('transform', `translate(${board.radius}, ${board.radius}) rotate(${board.rotation})`);
     }
-    
+
     _addRingToBeds(ring, beds) {
-        const bedsWithRings = []
+        const bedsWithRings = [];
         beds.forEach(bed => {
-            const bedWithRing = JSON.parse(JSON.stringify(bed))
-            bedWithRing.ring = ring
-            bedsWithRings.push(bedWithRing)
-        })
-    
-        return bedsWithRings
+            const bedWithRing = JSON.parse(JSON.stringify(bed));
+            bedWithRing.ring = ring;
+            bedsWithRings.push(bedWithRing);
+        });
+
+        return bedsWithRings;
     }
 
     _dispatchThrowEvent(boardContainer, bed) {
@@ -168,13 +175,14 @@ export class DartboardComponent implements AfterViewInit {
             bed: bed.ring.abbr + bed.frame,
             ring: bed.ring.name,
             score: bed.frame * bed.ring.multiplier,
-        }
-        boardContainer.dispatchEvent(new CustomEvent('throw', { detail }))
+        };
+        const event = new CustomEvent('throw', {detail});
+        boardContainer.dispatchEvent(event);
     }
-    
+
     _renderSegments(board, ring, beds, outerRadius, innerRadius) {
-        const classname = `c-Dartboard-${ring.name}`
-    
+        const classname = `c-Dartboard-${ring.name}`;
+
         const segments = board.svg.append('g')
             .classed(classname, true)
             .selectAll('arc')
@@ -182,13 +190,13 @@ export class DartboardComponent implements AfterViewInit {
                 .enter()
                     .append('g')
                         .attr('class', bed => `c-Dartboard-bed ${classname}--${bed.data.frame} is${bed.data.color}`)
-                        .on('click', bed => this._dispatchThrowEvent(board.container, bed.data))
-    
-        segments.append('path').attr('d', arc().outerRadius(outerRadius).innerRadius(innerRadius))
+                        .on('click', bed => this._dispatchThrowEvent(board.container, bed.data));
+
+        segments.append('path').attr('d', arc().outerRadius(outerRadius).innerRadius(innerRadius));
     }
-    
+
     _renderBorders(board, ring, beds, outerRadius, innerRadius) {
-        const borderArc = arc().outerRadius(outerRadius).innerRadius(innerRadius)
+        const borderArc = arc().outerRadius(outerRadius).innerRadius(innerRadius);
         const borderSegments = board.svg.append('g')
             .classed('c-Dartboard-borders', true)
             .selectAll('arc')
@@ -196,19 +204,19 @@ export class DartboardComponent implements AfterViewInit {
                 .enter()
                     .append('g')
                         .attr('class', bed => `c-Dartboard-border c-Dartboard-border--${bed.data.frame}`)
-                        .on('click', bed => this._dispatchThrowEvent(board.container, bed.data))
-        borderSegments.append('path').attr('d', borderArc)
-    
+                        .on('click', bed => this._dispatchThrowEvent(board.container, bed.data));
+        borderSegments.append('path').attr('d', borderArc);
+
         function _determineRotation(bedData) {
-            return -board.rotation + (board.segmentWidth * (bedData.position - 1))
+            return -board.rotation + (board.segmentWidth * (bedData.position - 1));
         }
         function determineX(bed) {
-            return borderArc.centroid(bed)[0]
+            return borderArc.centroid(bed)[0];
         }
         function determineY(bed) {
-            return borderArc.centroid(bed)[1]
+            return borderArc.centroid(bed)[1];
         }
-    
+
         borderSegments.append('text')
             .classed('c-Dartboard-borderLabel', true)
             .attr('x', determineX)
@@ -216,6 +224,6 @@ export class DartboardComponent implements AfterViewInit {
             .attr('dy', '.35em')
             .attr('transform', bed => `rotate(${_determineRotation(bed.data)}, ${determineX(bed)}, ${determineY(bed)})`)
             .attr('text-anchor', 'middle')
-            .text(bed => bed.data.frame)
+            .text(bed => bed.data.frame);
     }
 }
