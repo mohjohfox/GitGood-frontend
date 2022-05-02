@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {GameRunningComponent} from './game-running.component';
+import {GameActiveComponent} from './game-active.component';
 
 describe('ListViewComponent', () => {
-  let component: GameRunningComponent;
-  let fixture: ComponentFixture<GameRunningComponent>;
+  let component: GameActiveComponent;
+  let fixture: ComponentFixture<GameActiveComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameRunningComponent ]
+      declarations: [ GameActiveComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GameRunningComponent);
+    fixture = TestBed.createComponent(GameActiveComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

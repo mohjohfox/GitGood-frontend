@@ -11,7 +11,7 @@ import {TextFieldComponent} from './components/atoms/text-field/text-field.compo
 import {GameModeComponent} from './components/organisms/game-mode/game-mode.component';
 import {PlayerAddComponent} from './components/molecules/player-add/player-add.component';
 import {PlayerSelectionComponent} from './components/organisms/player-selection/player-selection.component';
-import {GameRunningComponent} from './components/pages/game-running/game-running.component';
+import {GameActiveComponent} from './components/pages/game-active/game-active.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +19,7 @@ import {GameRunningComponent} from './components/pages/game-running/game-running
         ButtonComponent,
         TextFieldComponent,
         GameSetupComponent,
-        GameRunningComponent,
+        GameActiveComponent,
         GameModeComponent,
         PlayerAddComponent,
         PlayerSelectionComponent

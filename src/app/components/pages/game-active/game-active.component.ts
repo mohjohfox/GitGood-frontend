@@ -13,9 +13,9 @@ import {HttpStatusCode} from '@angular/common/http';
 
 @Component({
     selector: 'app-game-running',
-    templateUrl: './game-running.component.html',
+    templateUrl: './game-active.component.html',
 })
-export class GameRunningComponent implements OnInit {
+export class GameActiveComponent implements OnInit {
 
  // @ViewChild(PlayerSelectionComponent) playerSelectionComponent: PlayerSelectionComponent;
  // @ViewChild(GameModeComponent) gameModeComponent: GameModeComponent;
