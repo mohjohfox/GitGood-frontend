@@ -12,6 +12,7 @@ import {GameModeComponent} from './components/organisms/game-mode/game-mode.comp
 import {PlayerAddComponent} from './components/molecules/player-add/player-add.component';
 import {PlayerSelectionComponent} from './components/organisms/player-selection/player-selection.component';
 import {GameActiveComponent} from './components/pages/game-active/game-active.component';
+import {DartboardComponent} from './components/organisms/dartboard/dartboard-component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import {GameActiveComponent} from './components/pages/game-active/game-active.co
         GameActiveComponent,
         GameModeComponent,
         PlayerAddComponent,
-        PlayerSelectionComponent
+        PlayerSelectionComponent,
+        DartboardComponent
     ],
     imports: [
         BrowserModule,
