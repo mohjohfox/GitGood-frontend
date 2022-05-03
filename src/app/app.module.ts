@@ -13,19 +13,25 @@ import {PlayerAddComponent} from './components/molecules/player-add/player-add.c
 import {PlayerSelectionComponent} from './components/organisms/player-selection/player-selection.component';
 import {GameActiveComponent} from './components/pages/game-active/game-active.component';
 import {DartboardComponent} from './components/organisms/dartboard/dartboard-component';
+import {LeaderboardComponent} from './components/organisms/leaderboard/leaderboard.component';
+import {LeaderboardPlayerComponent} from './components/molecules/leaderboard-player/leaderboard-player.component';
+import {PlayerScoreComponent} from './components/atoms/player-score/player-score.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ButtonComponent,
-        TextFieldComponent,
-        GameSetupComponent,
-        GameActiveComponent,
-        GameModeComponent,
-        PlayerAddComponent,
-        PlayerSelectionComponent,
-        DartboardComponent
-    ],
+  declarations: [
+    AppComponent,
+    ButtonComponent,
+    TextFieldComponent,
+    GameSetupComponent,
+    GameActiveComponent,
+    GameModeComponent,
+    PlayerAddComponent,
+    PlayerSelectionComponent,
+    DartboardComponent,
+    LeaderboardComponent,
+    LeaderboardPlayerComponent,
+    PlayerScoreComponent
+  ],
     imports: [
         BrowserModule,
         AppRoutingModule,
