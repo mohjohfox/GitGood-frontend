@@ -1,9 +1,9 @@
 <div id="leaderboard">
   <h2>Leaderboard</h2>
-  <div *ngFor="let player of playersAsArray; trackBy:change">
+  <div *ngFor="let player of playersAsArray">
     <app-leaderboard-player [label]="player.points" [name]="player.playerName"></app-leaderboard-player>
     <div class=""></div>
     <br>
-  </div>  
+  </div>
 </div>
 

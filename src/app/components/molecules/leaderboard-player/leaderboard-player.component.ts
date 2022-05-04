@@ -8,7 +8,7 @@ import {Player} from '../../../model/player';
 export class LeaderboardPlayerComponent {
 
   @Input()
-  label: number;
+  label: string;
   @Input()
   name: string;
 
