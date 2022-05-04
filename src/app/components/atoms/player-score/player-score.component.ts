@@ -7,9 +7,9 @@ import {Player} from '../../../model/player';
   styleUrls: ['./player-score.component.css'],
 })
 export class PlayerScoreComponent {
-
+  
   @Input()
-  label: string;
+  points: string;
   @Input()
   player: Player;
 

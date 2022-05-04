@@ -53,6 +53,8 @@ const defaultBeds = [
 })
 export class DartboardComponent implements AfterViewInit {
 
+    thrownScore;
+
     beds;
     rings;
   // tslint:disable-next-line:max-line-length
@@ -102,12 +104,6 @@ export class DartboardComponent implements AfterViewInit {
         console.log('Init dartboard');
         this.render();
         console.log(this.board);
-
-        document.querySelector('#dartboard').addEventListener('throw', (d) => {
-          console.log((d as CustomEvent).detail);
-      });
-
-
     }
 
     render() {
