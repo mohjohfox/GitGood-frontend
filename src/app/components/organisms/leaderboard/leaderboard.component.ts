@@ -8,4 +8,12 @@ import {Player} from '../../../model/player';
 })
 export class LeaderboardComponent {
 
+    @Input()
+    playersAsArray: Player[];
+
+
+    change(index, item){
+        console.log(item.points);
+        return item.points; 
+     }
 }

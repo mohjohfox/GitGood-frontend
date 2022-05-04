@@ -1,13 +1,9 @@
-<div>
+<div id="leaderboard">
   <h2>Leaderboard</h2>
-  <!-- Generate as many leaderboard-player components as are in the game
-  <div *ngFor="let player of players>
-    <app-leaderboard-player [player]="player" ></app-player-add>
+  <div *ngFor="let player of playersAsArray; trackBy:change">
+    <app-leaderboard-player [label]="player.points" [name]="player.playerName"></app-leaderboard-player>
     <div class=""></div>
-  </div>
-
-  For visual testing purposes:
-  -->
-  <app-leaderboard-player></app-leaderboard-player>
+    <br>
+  </div>  
 </div>
 

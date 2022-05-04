@@ -8,9 +8,9 @@ import {Player} from '../../../model/player';
 export class LeaderboardPlayerComponent {
 
   @Input()
-  label: string;
+  label: number;
   @Input()
-  player: Player;
+  name: string;
 
 }
 

@@ -1,8 +1,10 @@
 import {AfterContentInit, AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Player } from 'src/app/model/player';
 import {Game} from '../../../model/game';
 import { PlayerScoreComponent } from '../../atoms/player-score/player-score.component';
 import { DartboardComponent } from '../../organisms/dartboard/dartboard-component';
+import { LeaderboardComponent } from '../../organisms/leaderboard/leaderboard.component';
 
 @Component({
     selector: 'app-game-running',
@@ -14,6 +16,7 @@ export class GameActiveComponent implements OnInit, AfterViewInit {
   @ViewChild("second") secondScore!: PlayerScoreComponent;
   @ViewChild("third") thirdScore!: PlayerScoreComponent;
   @ViewChild(DartboardComponent) dartboard!: DartboardComponent;
+  @ViewChild(LeaderboardComponent) leaderboard!: LeaderboardComponent;
 
   private gameId: string;
   private game: Game;
@@ -31,7 +34,17 @@ export class GameActiveComponent implements OnInit, AfterViewInit {
             this.firstScore.points = "";
             this.secondScore.points = "";
             this.thirdScore.points = "";
+
+            // Test game object
+            let game: Game = new Game([new Player(1234, "teasdas"), new Player(124, "test2")], undefined);
+
+            this.leaderboard.playersAsArray = game.players;
+            console.log(this.leaderboard.playersAsArray)
+            
+            this.leaderboard.playersAsArray = game.players;
+            console.log(this.leaderboard.playersAsArray[0]);
             });
+
         console.log(this.firstScore);
         console.log(this.secondScore);
         console.log(this.thirdScore);
