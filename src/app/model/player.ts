@@ -6,5 +6,6 @@ export class Player {
   constructor(id: number, name: string) {
     this.playerId = id;
     this.playerName = name;
+    this.points = 0;
   }
 }

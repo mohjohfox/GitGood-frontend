@@ -1,21 +1,19 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
-import { TodoService } from '../../../services/todo.service';
 import {PlayerService} from '../../../services/player.service';
 import {Game} from '../../../model/game';
 import {GameModeComponent} from '../../organisms/game-mode/game-mode.component';
 import {PlayerSelectionComponent} from '../../organisms/player-selection/player-selection.component';
 import {GameMode} from '../../../model/gamemode';
 import {Player} from '../../../model/player';
-import {GameModeService} from '../../../services/gamemode.service';
 import {GamesetupService} from '../../../services/gamesetup.service';
-import {HttpStatusCode} from '@angular/common/http';
 
 @Component({
     selector: 'app-game-setup',
     templateUrl: './game-setup.component.html',
 })
 export class GameSetupComponent implements OnInit {
+
 
   @ViewChild(PlayerSelectionComponent) playerSelectionComponent: PlayerSelectionComponent;
   @ViewChild(GameModeComponent) gameModeComponent: GameModeComponent;
@@ -37,7 +35,7 @@ export class GameSetupComponent implements OnInit {
         const game: Game = new Game(playersAsArray, gameMode);
 
         this.gamesetupService.sendGameToServer(game).subscribe(response => {
-            console.log('Weiterleitung hier!');
+            this.router.navigate(['game', response.gameId]);
         });
       } else {
         alert('Spiel konnte nicht gestartet werden. Prüfe bitte folgende Eingaben: \n ' +
