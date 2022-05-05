@@ -9,7 +9,7 @@ import { LeaderboardComponent } from '../../organisms/leaderboard/leaderboard.co
 @Component({
     selector: 'app-game-running',
     templateUrl: './game-active.component.html',
-    styleUrls: ['./game-active.css'],
+    styleUrls: ['./game-active.component.css'],
 })
 export class GameActiveComponent implements OnInit, AfterViewInit {
   @ViewChild('first') firstScore!: PlayerScoreComponent;
