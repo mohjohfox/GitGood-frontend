@@ -5,6 +5,7 @@ import {Game} from '../../../model/game';
 import { PlayerScoreComponent } from '../../atoms/player-score/player-score.component';
 import { DartboardComponent } from '../../organisms/dartboard/dartboard-component';
 import { LeaderboardComponent } from '../../organisms/leaderboard/leaderboard.component';
+import {GameService} from '../../../services/game.service';
 
 @Component({
     selector: 'app-game-running',
@@ -19,17 +20,22 @@ export class GameActiveComponent implements OnInit, AfterViewInit {
   @ViewChild(LeaderboardComponent) leaderboard!: LeaderboardComponent;
 
   private gameId: string;
-  private game: Game;
+  private game: any;
+  private gameService: GameService;
 
     constructor(
       private readonly router: Router,
-      activatedRoute: ActivatedRoute
+      activatedRoute: ActivatedRoute,
+      private gameService2: GameService,
     ) {
-       this.gameId = activatedRoute.snapshot.paramMap.get('gameId');
-       // this.game zuweisen
+      this.gameService = gameService2;
+      this.gameId = activatedRoute.snapshot.paramMap.get('gameId');
     }
     ngAfterViewInit() {
         setTimeout(() => {
+
+            this.gameService.getGameFromServer(this.gameId).subscribe(value => {console.log(value); this.game = value; } );
+            console.log('Game: ' + this.game);
             // Your Code
             this.firstScore.points = '';
             this.secondScore.points = '';
