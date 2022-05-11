@@ -15,4 +15,10 @@ export class GameService {
     return this.httpClient.get<Game>('https://backend.gitgood.mohjohfox.de/game/' + gameId);
   }
 
+  sendSubmitRound(gameId: string, thrownPoints: string[]): Observable<Game> {
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(thrownPoints);
+    return this.httpClient.post<Game>('https://backend.gitgood.mohjohfox.de/game/' + gameId + '/round/submit', body, {headers});
+  }
+
 }

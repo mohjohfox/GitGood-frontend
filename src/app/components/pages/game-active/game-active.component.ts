@@ -12,7 +12,7 @@ import {GameService} from '../../../services/game.service';
     templateUrl: './game-active.component.html',
     styleUrls: ['./game-active.component.css'],
 })
-export class GameActiveComponent implements OnInit, AfterViewInit {
+export class GameActiveComponent implements AfterViewInit {
   @ViewChild('first') firstScore!: PlayerScoreComponent;
   @ViewChild('second') secondScore!: PlayerScoreComponent;
   @ViewChild('third') thirdScore!: PlayerScoreComponent;
@@ -20,43 +20,30 @@ export class GameActiveComponent implements OnInit, AfterViewInit {
   @ViewChild(LeaderboardComponent) leaderboard!: LeaderboardComponent;
 
   private gameId: string;
-  private game: any;
-  private gameService: GameService;
 
     constructor(
       private readonly router: Router,
       activatedRoute: ActivatedRoute,
-      private gameService2: GameService,
+      private gameService: GameService,
     ) {
-      this.gameService = gameService2;
       this.gameId = activatedRoute.snapshot.paramMap.get('gameId');
     }
     ngAfterViewInit() {
         setTimeout(() => {
-
-            this.gameService.getGameFromServer(this.gameId).subscribe(value => {console.log(value); this.game = value; } );
-            console.log('Game: ' + this.game);
-            // Your Code
             this.firstScore.points = '';
             this.secondScore.points = '';
             this.thirdScore.points = '';
 
-            /*
-            * Test gameobject
-            * Game wird zukünftig vom Backend angefragt
-            * */
-            this.game = new Game([new Player(1234, 'teasdas'), new Player(124, 'test2')], undefined);
-
-            this.leaderboard.playersAsArray = this.game.players;
+            this.gameService.getGameFromServer(this.gameId).subscribe(value => {this.leaderboard.playersAsArray = value.players; });
             });
 
         document.querySelector('#dartboard').addEventListener('throw', (d) => {
             const scoreDetails = (d as CustomEvent).detail;
-            this.setPoints(scoreDetails.score);
+            this.setPointsToScoreComponent(scoreDetails.score);
         });
     }
 
-    setPoints(points) {
+    setPointsToScoreComponent(points) {
         const scoreComponent = this.whichPointField();
 
         if (scoreComponent !== undefined) {
@@ -89,13 +76,34 @@ export class GameActiveComponent implements OnInit, AfterViewInit {
     }
 
     submitRound() {
-      this.game.players[0].points = 14;
-      this.leaderboard.playersAsArray = this.game.players;
+      this.fillEmptyFieldsWithNull();
+      this.gameService.sendSubmitRound(this.gameId, [this.firstScore.points, this.secondScore.points, this.thirdScore.points])
+       .subscribe(value => {
+         console.log(value);
+         this.leaderboard.playersAsArray = value.players;
+         this.firstScore.points = '';
+         this.secondScore.points = '';
+         this.thirdScore.points = '';
+         console.log(value.isFinished);
+         if (value.isFinished) {
+           // Forward here to new page
+           console.log('Congratulation! Game is over.');
+         }
+       });
     }
 
-    async ngOnInit() {
-        // this.players = await this.playerService.getAll();
-    }
+    fillEmptyFieldsWithNull() {
+      if (this.firstScore.points.length === 0) {
+        this.firstScore.points = '0';
+      }
 
+      if (this.secondScore.points.length === 0) {
+        this.secondScore.points = '0';
+      }
+
+      if (this.thirdScore.points.length === 0) {
+        this.thirdScore.points = '0';
+      }
+    }
 
 }
