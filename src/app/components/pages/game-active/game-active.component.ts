@@ -6,6 +6,7 @@ import { PlayerScoreComponent } from '../../atoms/player-score/player-score.comp
 import { DartboardComponent } from '../../organisms/dartboard/dartboard-component';
 import { LeaderboardComponent } from '../../organisms/leaderboard/leaderboard.component';
 import {GameService} from '../../../services/game.service';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-game-running',
@@ -84,10 +85,12 @@ export class GameActiveComponent implements AfterViewInit {
          this.firstScore.points = '';
          this.secondScore.points = '';
          this.thirdScore.points = '';
-         console.log(value.isFinished);
-         if (value.isFinished) {
-           // Forward here to new page
-           console.log('Congratulation! Game is over.');
+         console.log(value.finished);
+
+         if (value.finished) {
+           this.gameService.deleteGameById(this.gameId);
+           console.log('Deleted game');
+           this.router.navigate(['game-setup']);
          }
        });
     }
@@ -105,5 +108,11 @@ export class GameActiveComponent implements AfterViewInit {
         this.thirdScore.points = '0';
       }
     }
+
+  goBack() {
+    console.log('Deleted game ' + this.gameId);
+    this.gameService.deleteGameById(this.gameId);
+    this.router.navigate(['game-setup']);
+  }
 
 }

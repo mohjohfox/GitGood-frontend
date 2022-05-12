@@ -3,7 +3,7 @@ import {GameMode} from './gamemode';
 
 export class Game {
   currentPlayer: Player;
-  isFinished: boolean;
+  finished: boolean;
   gameMode: GameMode;
   id: string;
   players: Player[];
