@@ -1,12 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Player } from 'src/app/model/player';
-import {Game} from '../../../model/game';
 import { PlayerScoreComponent } from '../../atoms/player-score/player-score.component';
 import { DartboardComponent } from '../../organisms/dartboard/dartboard-component';
 import { LeaderboardComponent } from '../../organisms/leaderboard/leaderboard.component';
 import {GameService} from '../../../services/game.service';
-import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-game-running',
@@ -20,7 +17,7 @@ export class GameActiveComponent implements AfterViewInit {
   @ViewChild(DartboardComponent) dartboard!: DartboardComponent;
   @ViewChild(LeaderboardComponent) leaderboard!: LeaderboardComponent;
 
-  private gameId: string;
+  private readonly gameId: string;
 
     constructor(
       private readonly router: Router,
@@ -29,6 +26,7 @@ export class GameActiveComponent implements AfterViewInit {
     ) {
       this.gameId = activatedRoute.snapshot.paramMap.get('gameId');
     }
+
     ngAfterViewInit() {
         setTimeout(() => {
             this.firstScore.points = '';
@@ -44,27 +42,21 @@ export class GameActiveComponent implements AfterViewInit {
         });
     }
 
-    setPointsToScoreComponent(points) {
-        const scoreComponent = this.whichPointField();
+    submitRound() {
+      this.fillEmptyFieldsWithNull();
+      this.gameService.sendSubmitRound(this.gameId, [this.firstScore.points, this.secondScore.points, this.thirdScore.points])
+      .subscribe(value => {
+        this.leaderboard.playersAsArray = value.players;
+        this.firstScore.points = '';
+        this.secondScore.points = '';
+        this.thirdScore.points = '';
 
-        if (scoreComponent !== undefined) {
-            scoreComponent.points = points;
+        if (value.finished) {
+          this.gameService.deleteGameById(this.gameId);
+          this.router.navigate(['winner', this.gameId]);
         }
-    }
-
-    whichPointField(): PlayerScoreComponent {
-        if (this.firstScore.points.length === 0) {
-            console.log(this.firstScore);
-            return this.firstScore;
-        } else if (this.secondScore.points.length === 0) {
-            console.log(this.firstScore);
-            return this.secondScore;
-        } else if (this.thirdScore.points.length === 0) {
-            console.log(this.thirdScore);
-            return this.thirdScore;
-        }
-        return undefined;
-    }
+      });
+  }
 
     removeThrow() {
         if (this.thirdScore.points.length !== 0) {
@@ -76,26 +68,31 @@ export class GameActiveComponent implements AfterViewInit {
         }
     }
 
-    submitRound() {
-      this.fillEmptyFieldsWithNull();
-      this.gameService.sendSubmitRound(this.gameId, [this.firstScore.points, this.secondScore.points, this.thirdScore.points])
-       .subscribe(value => {
-         console.log(value);
-         this.leaderboard.playersAsArray = value.players;
-         this.firstScore.points = '';
-         this.secondScore.points = '';
-         this.thirdScore.points = '';
-         console.log(value.finished);
-
-         if (value.finished) {
-           this.gameService.deleteGameById(this.gameId);
-           console.log('Deleted game');
-           this.router.navigate(['game-setup']);
-         }
-       });
+    goBack() {
+      this.gameService.deleteGameById(this.gameId);
+      this.router.navigate(['game-setup']);
     }
 
-    fillEmptyFieldsWithNull() {
+    private setPointsToScoreComponent(points) {
+      const scoreComponent = this.whichPointField();
+
+      if (scoreComponent !== undefined) {
+        scoreComponent.points = points;
+      }
+    }
+
+    private whichPointField(): PlayerScoreComponent {
+      if (this.firstScore.points.length === 0) {
+        return this.firstScore;
+      } else if (this.secondScore.points.length === 0) {
+        return this.secondScore;
+      } else if (this.thirdScore.points.length === 0) {
+        return this.thirdScore;
+      }
+      return undefined;
+    }
+
+    private fillEmptyFieldsWithNull() {
       if (this.firstScore.points.length === 0) {
         this.firstScore.points = '0';
       }
@@ -108,11 +105,4 @@ export class GameActiveComponent implements AfterViewInit {
         this.thirdScore.points = '0';
       }
     }
-
-  goBack() {
-    console.log('Deleted game ' + this.gameId);
-    this.gameService.deleteGameById(this.gameId);
-    this.router.navigate(['game-setup']);
-  }
-
 }

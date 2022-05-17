@@ -16,6 +16,7 @@ import {DartboardComponent} from './components/organisms/dartboard/dartboard-com
 import {LeaderboardComponent} from './components/organisms/leaderboard/leaderboard.component';
 import {LeaderboardPlayerComponent} from './components/molecules/leaderboard-player/leaderboard-player.component';
 import {PlayerScoreComponent} from './components/atoms/player-score/player-score.component';
+import {WinnerComponent} from './components/organisms/winner/winner.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {PlayerScoreComponent} from './components/atoms/player-score/player-score
     DartboardComponent,
     LeaderboardComponent,
     LeaderboardPlayerComponent,
-    PlayerScoreComponent
+    PlayerScoreComponent,
+    WinnerComponent,
   ],
     imports: [
         BrowserModule,

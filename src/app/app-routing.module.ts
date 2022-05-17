@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {GameSetupComponent} from './components/pages/game-setup/game-setup.component';
 import {GameActiveComponent} from './components/pages/game-active/game-active.component';
+import {WinnerComponent} from './components/organisms/winner/winner.component';
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
       path: 'game/:gameId',
       component: GameActiveComponent,
+    },
+    {
+      path: 'winner/:gameId',
+      component: WinnerComponent,
     }
 ];
 
