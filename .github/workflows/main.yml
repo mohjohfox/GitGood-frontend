@@ -32,7 +32,7 @@ jobs:
       - name: ssh rm current ROOT
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: rm -rf /var/lib/docker/volumes/tomcat/_data/apps/mohjohfox.de/frontend/prod/ROOT
+          command: rm -rf /var/lib/docker/volumes/tomcat-gitgood/_data/apps/mohjohfox.de/frontend/prod/ROOT
           host: ${{ secrets.HOST }}
           username: root
           password: ${{ secrets.PASSWORD }}
