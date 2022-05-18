@@ -2,11 +2,11 @@ import {Player} from './player';
 import {GameMode} from './gamemode';
 
 export class Game {
-  gameId: string;
-  players: Player[];
+  currentPlayer: Player;
+  finished: boolean;
   gameMode: GameMode;
-  player: Player;
-
+  id: string;
+  players: Player[];
 
   constructor(players: Player[], gameMode: GameMode) {
     this.players = players;

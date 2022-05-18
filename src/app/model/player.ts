@@ -1,11 +1,12 @@
 export class Player {
-  playerId?: number;
-  playerName: string;
+  id?: number;
+  name: string;
   points: number;
+  thrownPoints: number[];
 
   constructor(id: number, name: string) {
-    this.playerId = id;
-    this.playerName = name;
+    this.id = id;
+    this.name = name;
     this.points = 0;
   }
 }

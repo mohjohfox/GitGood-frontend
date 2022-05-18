@@ -35,7 +35,7 @@ export class GameSetupComponent implements OnInit {
         const game: Game = new Game(playersAsArray, gameMode);
 
         this.gamesetupService.sendGameToServer(game).subscribe(response => {
-            this.router.navigate(['game', response.gameId]);
+            this.router.navigate(['game', response.id]);
         });
       } else {
         alert('Spiel konnte nicht gestartet werden. Prüfe bitte folgende Eingaben: \n ' +
@@ -49,7 +49,7 @@ export class GameSetupComponent implements OnInit {
     }
 
   private checkForValidNames(players: Player[]): boolean {
-      return players.every(item => this.matchesExpression(item.playerName));
+      return players.every(item => this.matchesExpression(item.name));
   }
 
   private matchesExpression(name: string): boolean {
