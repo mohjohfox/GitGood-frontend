@@ -1,0 +1,49 @@
+name: master deploy
+
+on:
+  push:
+    branches:
+    - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    # using Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1 #this installs node and npm for us
+        with:
+          node-version: "14.x"
+
+      - uses: actions/cache@v1 # this allows for re-using node_modules caching, making builds a bit faster.
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm cache clean --force
+      - run: npm install
+      - run: npm install -g @angular/cli > /dev/null
+      - run: ng build --configuration=production --output-path=dist/ROOT
+
+      - name: ssh rm current ROOT
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: rm -rf /var/lib/docker/volumes/tomcat/_data/apps/mohjohfox.de/frontend/prod/ROOT
+          host: ${{ secrets.HOST }}
+          username: root
+          password: ${{ secrets.PASSWORD }}
+
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        env:
+          HOST:  ${{ secrets.HOST }}
+          USERNAME:  ${{ secrets.USERNAME }}
+          PORT:  ${{ secrets.PORT }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+        with:
+          source: "./dist"
+          target: ${{ secrets.PROD_TARGET_PATH }}
+          strip_components: 2
