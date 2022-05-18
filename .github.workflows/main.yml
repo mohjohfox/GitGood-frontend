@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - GG-127-angular-deployment
   workflow_dispatch:
 
 jobs:
