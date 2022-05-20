@@ -9,7 +9,7 @@ jobs:
  build:
   
     # using Ubuntu
-    runs-on: ubuntu-latestWW
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
