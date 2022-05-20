@@ -6,44 +6,24 @@ on:
       - master
 
 jobs:
-  ci:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
+ build:
+  
+    # using Ubuntu
+    runs-on: ubuntu-latestWW
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1 #this installs node and npm for us
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "14.x"
 
-      - name: Cache node modules
-        id: cache-nodemodules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
+      - uses: actions/cache@v1 # this allows for re-using node_modules caching, making builds a bit faster.
         with:
-          # caching node_modules
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Install Dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: |
-          npm ci
-      - name: Build
-        run: |
-          npm run build -- --prod
-      - name: Lint
-        run: |
-          npm run lint
-      - name: Test
-        run: |
-          npm run test -- --prod
+            ${{ runner.os }}-node-
+      - run: npm cache clean --force
+      - run: npm install
+      - run: npm install -g @angular/cli > /dev/null
+      - run: ng build --configuration=production
