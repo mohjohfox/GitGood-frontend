@@ -17,23 +17,25 @@ import {LeaderboardComponent} from './components/organisms/leaderboard/leaderboa
 import {LeaderboardPlayerComponent} from './components/molecules/leaderboard-player/leaderboard-player.component';
 import {PlayerScoreComponent} from './components/atoms/player-score/player-score.component';
 import {WinnerComponent} from './components/organisms/winner/winner.component';
+import {DarkModeToggleComponent} from './components/atoms/dark-mode-toggle/dark-mode-toggle.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ButtonComponent,
-    TextFieldComponent,
-    GameSetupComponent,
-    GameActiveComponent,
-    GameModeComponent,
-    PlayerAddComponent,
-    PlayerSelectionComponent,
-    DartboardComponent,
-    LeaderboardComponent,
-    LeaderboardPlayerComponent,
-    PlayerScoreComponent,
-    WinnerComponent,
-  ],
+    declarations: [
+        AppComponent,
+        ButtonComponent,
+        TextFieldComponent,
+        GameSetupComponent,
+        GameActiveComponent,
+        GameModeComponent,
+        PlayerAddComponent,
+        PlayerSelectionComponent,
+        DartboardComponent,
+        LeaderboardComponent,
+        LeaderboardPlayerComponent,
+        PlayerScoreComponent,
+        WinnerComponent,
+        DarkModeToggleComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
