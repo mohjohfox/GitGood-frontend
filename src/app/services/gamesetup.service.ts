@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
+import { environment } from 'src/environments/environment';
 import {Game} from '../model/game';
 
 @Injectable({
@@ -8,8 +9,7 @@ import {Game} from '../model/game';
 })
 export class GamesetupService {
 
-  private url = 'https://backend.gitgood.mohjohfox.de';
-  // private url = 'http://localhost:8080';
+  private apiUrl = environment.baseURL;
 
   constructor(private readonly httpClient: HttpClient) {
   }
@@ -17,7 +17,7 @@ export class GamesetupService {
   sendGameToServer(game: Game): Observable<Game> {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(game);
-    return this.httpClient.post<Game>(this.url + '/game/start', body, {headers});
+    return this.httpClient.post<Game>(this.apiUrl + '/game/start', body, {headers});
   }
 
 }
