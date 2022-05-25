@@ -52,7 +52,6 @@ export class GameActiveComponent implements AfterViewInit {
         this.thirdScore.points = '';
 
         if (value.finished) {
-          this.gameService.deleteGameById(this.gameId);
           this.router.navigate(['winner', this.gameId]);
         }
       });
