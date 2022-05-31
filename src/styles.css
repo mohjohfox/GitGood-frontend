@@ -4,12 +4,6 @@ body.dark-mode {
   color: #dfe6e9;
 }
 
-body.light-mode {
-  background-color: #dfe6e9;
-  color: #2d3436;
-}
-
-
 .c-Dartboard {
     stroke: silver;
     stroke-width: 2px;
