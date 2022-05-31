@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerScoreComponent } from '../../atoms/player-score/player-score.component';
 import { DartboardComponent } from '../../organisms/dartboard/dartboard-component';
@@ -16,6 +16,8 @@ export class GameActiveComponent implements AfterViewInit {
   @ViewChild('third') thirdScore!: PlayerScoreComponent;
   @ViewChild(DartboardComponent) dartboard!: DartboardComponent;
   @ViewChild(LeaderboardComponent) leaderboard!: LeaderboardComponent;
+  @Input()
+  currentPlayerName: string;
 
   private readonly gameId: string;
 
@@ -33,7 +35,8 @@ export class GameActiveComponent implements AfterViewInit {
             this.secondScore.points = '';
             this.thirdScore.points = '';
 
-            this.gameService.getGameFromServer(this.gameId).subscribe(value => {this.leaderboard.playersAsArray = value.players; });
+            this.gameService.getGameFromServer(this.gameId).subscribe(value => {this.leaderboard.playersAsArray = value.players;
+                                                                                this.currentPlayerName = value.currentPlayer.name; });
             });
 
         document.querySelector('#dartboard').addEventListener('throw', (d) => {
@@ -50,7 +53,7 @@ export class GameActiveComponent implements AfterViewInit {
         this.firstScore.points = '';
         this.secondScore.points = '';
         this.thirdScore.points = '';
-
+        this.currentPlayerName = value.currentPlayer.name;
         if (value.finished) {
           this.router.navigate(['winner', this.gameId]);
         }
