@@ -3,8 +3,13 @@
 </div>
 
 <div class="container">
+
+
+</div>
+<div class="container">
   <app-leaderboard></app-leaderboard>
   <app-dartboard></app-dartboard>
+
 </div>
 
 <div class="container">
@@ -13,14 +18,12 @@
   <app-player-score #third></app-player-score>
 </div>
 
-<div class="container">
-  <app-button label="Entferne letzten Wurf" (clicked)="removeThrow()"></app-button>
-</div>
-
 <br>
 
 <div class="container">
+  <app-button label="Entferne letzten Wurf" (clicked)="removeThrow()"></app-button>
   <app-button label="Ende Wurf" (clicked)="submitRound()"></app-button>
+
 </div>
 
 <br>
@@ -29,8 +32,4 @@
   <app-button label="Back" (clicked)="goBack()"></app-button>
 </div>
 
-<div class="container">
-</div>
-
-<br>
 
