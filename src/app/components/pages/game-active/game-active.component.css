@@ -16,4 +16,5 @@ app-button{
   display: flex;
   align-items: stretch;
   height: 25px;
+  margin-top: 25px;
 }
