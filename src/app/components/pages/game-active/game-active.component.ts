@@ -64,7 +64,6 @@ export class GameActiveComponent implements AfterViewInit {
         this.setCheckoutOptions(value.currentPlayer.points);
 
         if (value.finished) {
-          this.gameService.deleteGameById(this.gameId);
           this.router.navigate(['winner', this.gameId]);
         }
       });
