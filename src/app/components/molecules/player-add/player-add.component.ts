@@ -4,6 +4,7 @@ import {Player} from '../../../model/player';
 @Component({
     selector: 'app-player-add',
     templateUrl: './player-add.component.html',
+    styleUrls: ['./player-add.component.css']
 })
 export class PlayerAddComponent {
 

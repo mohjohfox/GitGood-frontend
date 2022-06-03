@@ -1,7 +1,20 @@
 app-leaderboard{
-  position: absolute;
+  position: relative;
   right: 0;
-  width: 33%;
+  width: 40%;
   border: 3px solid #73AD21;
   padding: 10px;
+  margin:20px;
+  float: right !important;
+}
+
+app-button{
+  margin-right: 20px;
+}
+
+.playerScore {
+  display: flex;
+  align-items: stretch;
+  height: 25px;
+  margin-top: 25px;
 }
