@@ -18,3 +18,14 @@ app-button{
   height: 25px;
   margin-top: 25px;
 }
+
+.playerScoreRemaining {
+  display: flex;
+  align-items: stretch;
+  height: 25px;
+  margin-top: 25px;
+}
+
+.lable {
+  margin-right: 8px;
+}

@@ -44,6 +44,7 @@ export class GameActiveComponent implements AfterViewInit {
             this.gameService.getGameFromServer(this.gameId).subscribe(value => {
               this.leaderboard.playersAsArray = value.players;
               this.remainingPoints.points = value.currentPlayer.points.toString();
+              this.setCheckoutOptions(value.currentPlayer.points);
               this.currentPlayerName = value.currentPlayer.name; });
             });
 
