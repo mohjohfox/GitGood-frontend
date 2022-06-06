@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerScoreComponent } from '../../atoms/player-score/player-score.component';
 import { DartboardComponent } from '../../organisms/dartboard/dartboard-component';
@@ -21,6 +21,8 @@ export class GameActiveComponent implements AfterViewInit {
   @ViewChild('thirdFinish') thirdFinish!: PlayerScoreComponent;
   @ViewChild(DartboardComponent) dartboard!: DartboardComponent;
   @ViewChild(LeaderboardComponent) leaderboard!: LeaderboardComponent;
+  @Input()
+  currentPlayerName: string;
 
   private readonly gameId: string;
 
@@ -40,9 +42,9 @@ export class GameActiveComponent implements AfterViewInit {
             this.thirdScore.points = '';
 
             this.gameService.getGameFromServer(this.gameId).subscribe(value => {
-                this.leaderboard.playersAsArray = value.players;
-                this.remainingPoints.points = value.currentPlayer.points.toString();
-               });
+              this.leaderboard.playersAsArray = value.players;
+              this.remainingPoints.points = value.currentPlayer.points.toString();
+              this.currentPlayerName = value.currentPlayer.name; });
             });
 
         document.querySelector('#dartboard').addEventListener('throw', (d) => {
@@ -59,10 +61,9 @@ export class GameActiveComponent implements AfterViewInit {
         this.firstScore.points = '';
         this.secondScore.points = '';
         this.thirdScore.points = '';
+        this.currentPlayerName = value.currentPlayer.name;
         this.remainingPoints.points = value.currentPlayer.points.toString();
-
         this.setCheckoutOptions(value.currentPlayer.points);
-
         if (value.finished) {
           this.router.navigate(['winner', this.gameId]);
         }
@@ -78,13 +79,11 @@ export class GameActiveComponent implements AfterViewInit {
            });
     }
 
-  
-
     removeThrow() {
       if (this.thirdScore.points.length !== 0) {
         let remainingPoints = +this.remainingPoints.points;
         let thrownPoints = +this.thirdScore.points;
-        
+
         remainingPoints += thrownPoints;
         this.remainingPoints.points = remainingPoints.toString();
         this.thirdScore.points = '';
@@ -93,14 +92,14 @@ export class GameActiveComponent implements AfterViewInit {
           let thrownPoints = +this.secondScore.points;
           remainingPoints += thrownPoints;
           this.remainingPoints.points = remainingPoints.toString();
-          
+
           this.secondScore.points = '';
         } else if (this.firstScore.points.length !== 0) {
           let remainingPoints = +this.remainingPoints.points;
           let thrownPoints = +this.firstScore.points;
           remainingPoints += thrownPoints;
           this.remainingPoints.points = remainingPoints.toString();
-            
+
           this.firstScore.points = '';
         }
     }

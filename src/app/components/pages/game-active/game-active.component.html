@@ -1,13 +1,14 @@
 <div class="container">
-  <h1>Placeholder!</h1>
+  <h1>Du bist an der Reihe: {{currentPlayerName}}!</h1>
 </div>
 
 <div class="container">
   <app-leaderboard></app-leaderboard>
   <app-dartboard></app-dartboard>
+
 </div>
 
-<div class="container">
+<div class="playerScore container">
   <app-player-score #first></app-player-score>
   <app-player-score #second ></app-player-score>
   <app-player-score #third></app-player-score>
@@ -26,24 +27,18 @@
   
 </div>
 
+<br>
+
 <div class="container">
-  <app-button label="Entferne letzten Wurf" (clicked)="removeThrow()"></app-button>
+  <app-button label="Letzten Wurf entfernen" (clicked)="removeThrow()"></app-button>
+  <app-button label="Wurf bestätigen" (clicked)="submitRound()"></app-button>
+
 </div>
 
 <br>
 
 <div class="container">
-  <app-button label="Ende Wurf" (clicked)="submitRound()"></app-button>
+  <app-button label="Zurück" (clicked)="goBack()"></app-button>
 </div>
 
-<br>
-
-<div class="container">
-  <app-button label="Back" (clicked)="goBack()"></app-button>
-</div>
-
-<div class="container">
-</div>
-
-<br>
 
