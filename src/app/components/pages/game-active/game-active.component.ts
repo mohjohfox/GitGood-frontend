@@ -70,7 +70,7 @@ export class GameActiveComponent implements AfterViewInit {
       });
     }
 
-    private setCheckoutOptions(rest: number){
+    private setCheckoutOptions(rest: number) {
         this.checkoutService.getCheckoutOptionsFromServer(rest).subscribe(
           value => {
             this.firstFinish.points = value[0];
@@ -82,21 +82,21 @@ export class GameActiveComponent implements AfterViewInit {
     removeThrow() {
       if (this.thirdScore.points.length !== 0) {
         let remainingPoints = +this.remainingPoints.points;
-        let thrownPoints = +this.thirdScore.points;
+        const thrownPoints = +this.thirdScore.points;
 
         remainingPoints += thrownPoints;
         this.remainingPoints.points = remainingPoints.toString();
         this.thirdScore.points = '';
         } else if (this.secondScore.points.length !== 0) {
           let remainingPoints = +this.remainingPoints.points;
-          let thrownPoints = +this.secondScore.points;
+          const thrownPoints = +this.secondScore.points;
           remainingPoints += thrownPoints;
           this.remainingPoints.points = remainingPoints.toString();
 
           this.secondScore.points = '';
         } else if (this.firstScore.points.length !== 0) {
           let remainingPoints = +this.remainingPoints.points;
-          let thrownPoints = +this.firstScore.points;
+          const thrownPoints = +this.firstScore.points;
           remainingPoints += thrownPoints;
           this.remainingPoints.points = remainingPoints.toString();
 
